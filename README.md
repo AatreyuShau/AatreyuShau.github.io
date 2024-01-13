@@ -1,4 +1,4 @@
-# AatreyuShau.github.io
+# Aatreyu Shau
 
 Helo helno
 
