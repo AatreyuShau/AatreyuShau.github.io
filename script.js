@@ -1,57 +1,57 @@
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("three-container").appendChild(renderer.domElement);
 
-const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(10, 10, 10);
-scene.add(light);
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+dirLight.position.set(5, 5, 5);
+scene.add(dirLight);
 
-// Space Station
-const group = new THREE.Group();
+// Image carousel group
+const carousel = new THREE.Group();
 
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.6, roughness: 0.4 });
-const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-group.add(sphere);
-
-//
-for (let i = 0; i < 3; i++) {
-    const ringGeometry = new THREE.TorusGeometry(2 + i*0.5, 0.05, 16, 100);
-    const ringMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 0.5 });
-    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-    ring.rotation.x = i * 0.5;
-    group.add(ring);
-}
-
-//sats
-const pages = [
-    { name: "About", url: "#about" },
-    { name: "Projects", url: "#projects" },
-    { name: "Contact", url: "#contact" }
+// Your images + links
+const items = [
+    { img: "https://picsum.photos/id/1011/300/200", url: "#about" },
+    { img: "https://picsum.photos/id/1025/300/200", url: "#projects" },
+    { img: "https://picsum.photos/id/1035/300/200", url: "#contact" },
+    { img: "https://picsum.photos/id/1041/300/200", url: "#gallery" }
 ];
 
-pages.forEach((page, i) => {
-    const geo = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-    const mat = new THREE.MeshStandardMaterial({ color: 0xffaa00 });
-    const cube = new THREE.Mesh(geo, mat);
-    cube.position.set(Math.sin(i*2) * 3, i - 1, Math.cos(i*2) * 3);
-    cube.userData = { url: page.url };
-    group.add(cube);
+const radius = 5;
+const loader = new THREE.TextureLoader();
+
+items.forEach((item, i) => {
+    loader.load(item.img, (texture) => {
+        const geometry = new THREE.PlaneGeometry(3, 2);
+        const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(geometry, material);
+
+        const angle = (i / items.length) * Math.PI * 2;
+        plane.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+        plane.lookAt(new THREE.Vector3(0, 0, 0));
+
+        plane.userData = { url: item.url };
+        carousel.add(plane);
+    });
 });
 
-scene.add(group);
-camera.position.z = 6;
+scene.add(carousel);
+camera.position.z = 10;
 
+// Animation
 function animate() {
     requestAnimationFrame(animate);
-    group.rotation.y += 0.002;
+    carousel.rotation.y += 0.005;
     renderer.render(scene, camera);
 }
 animate();
 
-// Handle clicks
+// Click handling
 window.addEventListener("click", (event) => {
     const mouse = new THREE.Vector2(
         (event.clientX / window.innerWidth) * 2 - 1,
@@ -59,14 +59,13 @@ window.addEventListener("click", (event) => {
     );
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(group.children);
+    const intersects = raycaster.intersectObjects(carousel.children);
     if (intersects.length > 0) {
-        const { url } = intersects[0].object.userData;
-        if (url) window.location.href = url;
+        window.location.href = intersects[0].object.userData.url;
     }
 });
 
-//resize
+// Responsive resize
 window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
