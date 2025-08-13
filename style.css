@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    background-color: #fdf5e6;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+}
+
+.dot-grid {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(#444 1px, transparent 1px);
+    background-size: 25px 25px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.site-title {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    color: #4b3b2c;
+    z-index: 10;
+}
