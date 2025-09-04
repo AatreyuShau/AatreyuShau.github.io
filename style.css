@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #fdf5e6; /* parchment */
+    background-color: #fdf5e6; /* parchmentie */
     font-family: 'Georgia', serif;
     overflow: hidden;
 }
@@ -24,4 +24,36 @@ body {
     color: #4b3b2c;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     z-index: 10;
+}
+
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-radius: 15px;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  gap: -1px;
+  box-shadow:
+    inset -1px -1px 0px #555,
+    inset 1px 1px 0px #555,
+    inset -1px 1px 0px #555,
+    /*4 smth u wont rly notice*/ inset 1px -1px 0px #555;
+  z-index: -1;
+}
+
+.button {
+  all: unset;
+  background: #555;
+  border-radius: 1.5px;
+  cursor: cell;
+  transition: 5s;
+  z-index: 5;
+}
+
+.button:hover {
+  background: #00000000;
+  transition: 0.3s;
+  z-index: 5;
 }
