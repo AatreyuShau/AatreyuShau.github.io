@@ -1,0 +1,47 @@
+.island {
+  position: relative;
+  width: 4000px;
+  height: 4000px;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+}
+
+.snow {
+  filter: url(#snow-layer);
+}
+
+.stone {
+  filter: url(#stone-layer);
+}
+
+.forest {
+  filter: url(#forest-layer);
+}
+
+.grass {
+  filter: url(#grass-layer);
+}
+
+.sand {
+  filter: url(#sand-layer);
+}
+
+.shallows {
+  filter: url(#shallows-layer);
+}
+
+.water {
+  filter: url(#water-layer);
+}
+
+.deep {
+  filter: url(#deep-layer);
+}
+
+body {
+  background: #000;
+}
