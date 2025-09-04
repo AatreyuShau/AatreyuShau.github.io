@@ -26,7 +26,7 @@ body {
     z-index: 10;
 }
 
-.matrix {
+body .matrix {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
