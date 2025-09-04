@@ -30,8 +30,8 @@ body .matrix {
   position: fixed;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(50, 1fr);
+  grid-template-rows: repeat(50, 1fr);
   border-radius: 15px;
   overflow: hidden;
   width: 300px;
