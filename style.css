@@ -47,7 +47,7 @@ body .matrix {
   all: unset;
   background: #555;
   border-radius: 1.5px;
-  cursor: cell;
+  cursor: pointer;
   transition: 5s;
   z-index: 5;
 }
