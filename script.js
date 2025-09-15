@@ -51,7 +51,23 @@ function animate() {
 }
 animate();
 
-// Click handling
+window.addEventListener("scroll", () => {
+  const hero = document.querySelector(".hero-title");
+  const scrollY = window.scrollY;
+  const shrinkPoint = 300;
+
+  if (scrollY < shrinkPoint) {
+    const scale = 1 - (scrollY / shrinkPoint) * 0.7;
+    const topOffset = (scrollY / shrinkPoint) * 40;
+
+    hero.style.transform = `translateX(-50%) scale(${scale})`;
+    hero.style.top = `${topOffset}px`;
+  } else {
+    hero.style.transform = `translateX(-50%) scale(0.3)`;
+    hero.style.top = "40px";
+  }
+});
+
 window.addEventListener("click", (event) => {
     const mouse = new THREE.Vector2(
         (event.clientX / window.innerWidth) * 2 - 1,
@@ -65,7 +81,6 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Responsive resize
 window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();

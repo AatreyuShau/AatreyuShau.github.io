@@ -5,6 +5,28 @@ body {
     overflow: hidden;
 }
 
+head {
+    box-shadow: 10px 10px 10px 10px #3c3f4878;
+}
+
+.hero-title {
+  position: fixed;
+  top: 50%;
+  transform: translateX(-50%) scale(1);
+  object-fit: cover;
+  z-index: -1;
+  transition: transform 0.1s linear, top 0.1s linear, height 0.1s linear;
+}
+
+/* When shrunk */
+.hero-title.shrunk {
+  width: auto;
+  scale: 0.5;
+  top: 0;
+  transform: translateX(-50%) scale(1);
+  object-fit: contain;
+}
+
 .dot-grid {
     position: fixed;
     inset: 0;
